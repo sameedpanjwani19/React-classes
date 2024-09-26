@@ -1,27 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-// import { signOutUser } from '../config/firebasemethods'
+import { Link, useNavigate } from 'react-router-dom'
+import { signOutUser } from '../config/firebasemethods'
 
 const Navbar = () => {
 
-//   // useNavigate
-//   const navigate = useNavigate()
+  // useNavigate
+  const navigate = useNavigate()
 
-//   const LogoutUser = async () => {
-//     const user = await signOutUser();
-//     setIsUser(false)
-//     console.log(user);
-//     navigate('login')
-//   }
+  const LogoutUser = async () => {
+    const user = await signOutUser();
+    console.log(user);
+    navigate('login')
+  }
   return (
     <>
-      <div className='d-flex justify-content-center gap-5 m-5'>
-        <h5><Link to=''>Home</Link></h5>
-        <h5><Link to='dashboard'>Dashboard</Link></h5>
-        <h5><Link to='profile'>profile</Link></h5>
-        <h5><Link to='login'>Login</Link></h5>
-        <h5><Link to='register'>Register</Link></h5>
-        {/* <h5 className='cursor-pointer' onClick={LogoutUser}>Logout</h5> */}
+    
+      <div className=' color-primary d-flex align-items-center justify-content-center gap-5 m-5'>
+        <h5><Link className='text-decoration-none' to=''>Home</Link></h5>
+        <h5><Link className='text-decoration-none' to='dashboard'>Dashboard</Link></h5>
+        <h5><Link className='text-decoration-none' to='profile'>Profile</Link></h5>
+        <h5><Link className='text-decoration-none' to='login'>Login</Link></h5>
+        <h5><Link className='text-decoration-none' to='register'>Register</Link></h5>
+        <button className='btn btn-primary' onClick={LogoutUser}>Logout</button>
       </div>
     </>
   )

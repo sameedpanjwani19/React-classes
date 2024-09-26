@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './Layout.jsx';
 import Login from './pages/Login.jsx';
@@ -9,6 +8,7 @@ import SingleUser from './pages/SingleUser.jsx';
 import Register from './pages/Register.jsx';
 import Home from './pages/Home.jsx';
 import ProtectedRoutes from './components/ProtectedRoutes.jsx';
+import Profile from './pages/Profile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '',
+        path: '/',
         element: <Home />
       },
       {

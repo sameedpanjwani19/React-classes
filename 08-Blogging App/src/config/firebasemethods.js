@@ -30,10 +30,9 @@ import {
   // Register user
   let signUpUser = (obj) => {
     return new Promise((resolve, reject) => {
-      createUserWithEmailAndPassword(auth, obj.email, obj.password)
+      createUserWithEmailAndPassword(auth, obj.email, obj.password, obj.fullName, obj.profileImage)
         .then(async (res) => {
           obj.id = res.user.uid;
-          delete obj.password;
           await addDoc(collection(db, "users"), obj)
             .then(() => {
               console.log("User added to database successfully");
@@ -101,19 +100,24 @@ import {
   // Get data with ID from Firestore
   const getData = (colName, uid) => {
     return new Promise(async (resolve, reject) => {
-      const dataArr = [];
       try {
+        const dataArr = [];
         const q = query(collection(db, colName), where("uid", "==", uid));
         const querySnapshot = await getDocs(q);
+        
+        // Push each document data to the array
         querySnapshot.forEach((doc) => {
-          dataArr.push(doc.data());
+          dataArr.push({ id: doc.id, ...doc.data() }); // Includes document ID
         });
-        resolve(dataArr); // Resolve after looping through all documents
+  
+        resolve(dataArr); // Resolve after collecting all data
       } catch (error) {
-        reject("Error occurred: " + error.message);
+        reject(`Error occurred: ${error.message}`);
       }
     });
   };
+  
+  export default getData;
   
   // Get all data
   const getAllData = (colName) => {
@@ -183,5 +187,8 @@ import {
     deleteDocument,
     updateDocument,
     uploadImage,
+    collection,
+    doc,
+    getDocs,
   };
   
